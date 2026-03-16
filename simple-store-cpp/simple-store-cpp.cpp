@@ -199,7 +199,46 @@ char ReadAddMoreItems()
     cin >> AddMore;
     return AddMore;
 }
+void ResetScreen()
+{
+    system("cls");
+    system("color 0F");
+}
+
+void RunStore()
+{
+    stProduct arrProducts[100];
+    unsigned short ProductCount = 0;
+    stInvoice Invoice;
+
+    LoadProductList(arrProducts, ProductCount);
+    PrintProductList(arrProducts, ProductCount);
+
+    char AddMore = 'Y';
+    do
+    {
+        AddItemToCart(Invoice, arrProducts, ProductCount);
+        PrintCart(Invoice);
+        AddMore = ReadAddMoreItems();
+    } while (AddMore == 'Y' || AddMore == 'y');
+
+    ApplyDiscount(Invoice);
+    PrintInvoice(Invoice);
+}
+
+void StartStore()
+{
+    char PlayAgain = 'Y';
+    do
+    {
+        ResetScreen();
+        RunStore();
+        cout << "\nDo you want to shop again? Y/N? ";
+        cin >> PlayAgain;
+    } while (PlayAgain == 'Y' || PlayAgain == 'y');
+}
 int main()
 {
+    StartStore();
     return 0;
 }
