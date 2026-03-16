@@ -73,6 +73,78 @@ void PrintProductList(stProduct arrProducts[], unsigned short ProductCount)
     }
     cout << "_________________________________\n";
 }
+stProduct FindProductByID(unsigned short ID,
+    stProduct arrProducts[], unsigned short ProductCount)
+{
+    for (unsigned short i = 0; i < ProductCount; i++)
+    {
+        if (arrProducts[i].ID == ID)
+            return arrProducts[i];
+    }
+    stProduct EmptyProduct;
+    return EmptyProduct;
+}
+
+bool IsProductExist(unsigned short ID,
+    stProduct arrProducts[], unsigned short ProductCount)
+{
+    for (unsigned short i = 0; i < ProductCount; i++)
+    {
+        if (arrProducts[i].ID == ID)
+            return true;
+    }
+    return false;
+}
+
+unsigned short ReadProductID(stProduct arrProducts[],
+    unsigned short ProductCount)
+{
+    unsigned short ID = 0;
+    do
+    {
+        cout << "Enter Product ID: ";
+        cin >> ID;
+    } while (!IsProductExist(ID, arrProducts, ProductCount));
+    return ID;
+}
+
+unsigned short ReadProductQuantity(stProduct Product)
+{
+    unsigned short Quantity = 0;
+    do
+    {
+        cout << "Enter Quantity (Available: " << Product.Stock << "): ";
+        cin >> Quantity;
+    } while (Quantity < 1 || Quantity > Product.Stock);
+    return Quantity;
+}
+
+void AddItemToCart(stInvoice& Invoice, stProduct arrProducts[],
+    unsigned short ProductCount)
+{
+    stCartItem CartItem;
+    CartItem.Product = FindProductByID(ReadProductID(arrProducts, ProductCount),arrProducts, ProductCount);
+    CartItem.Quantity = ReadProductQuantity(CartItem.Product);
+    CartItem.TotalPrice = CartItem.Product.Price * CartItem.Quantity;
+    Invoice.Items[Invoice.NumberOfItems] = CartItem;
+    Invoice.NumberOfItems++;
+    Invoice.SubTotal += CartItem.TotalPrice;
+}
+
+void PrintCart(stInvoice Invoice)
+{
+    cout << "\n_________________________________\n";
+    cout << "           Your Cart\n";
+    cout << "_________________________________\n";
+    for (unsigned short i = 0; i < Invoice.NumberOfItems; i++)
+    {
+        cout << Invoice.Items[i].Product.Name << "\t";
+        cout << "x" << Invoice.Items[i].Quantity << "\t";
+        cout << "$" << Invoice.Items[i].TotalPrice << endl;
+    }
+    cout << "_________________________________\n";
+    cout << "SubTotal: $" << Invoice.SubTotal << endl;
+}
 int main()
 {
     return 0;
