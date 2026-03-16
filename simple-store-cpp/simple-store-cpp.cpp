@@ -1,5 +1,7 @@
 #include<iostream>
 #include<string>
+#include<iomanip>
+
 using namespace std;
 
 enum enCategory { Food = 1, Electronics = 2, Clothing = 3 };
@@ -59,20 +61,25 @@ void LoadProductList(stProduct arrProducts[], unsigned short& ProductCount)
 
 void PrintProductList(stProduct arrProducts[], unsigned short ProductCount)
 {
-    cout << "\n_________________________________\n";
-    cout << "        Product List\n";
-    cout << "_________________________________\n";
-    cout << "ID  Name          Price   Stock   Category\n";
-    cout << "_________________________________\n";
+    cout << "\n";
+    cout << left
+        << setw(5) << "ID"
+        << setw(15) << "Name"
+        << setw(10) << "Price"
+        << setw(8) << "Stock"
+        << setw(15) << "Category" << "\n";
+    cout << string(53, '-') << "\n";
+
     for (unsigned short i = 0; i < ProductCount; i++)
     {
-        cout << arrProducts[i].ID << "   ";
-        cout << arrProducts[i].Name << "\t\t";
-        cout << arrProducts[i].Price << "\t";
-        cout << arrProducts[i].Stock << "\t";
-        cout << GetCategoryName(arrProducts[i].Category) << endl;
+        cout << left
+            << setw(5) << arrProducts[i].ID
+            << setw(15) << arrProducts[i].Name
+            << setw(10) << arrProducts[i].Price
+            << setw(8) << arrProducts[i].Stock
+            << setw(15) << GetCategoryName(arrProducts[i].Category) << "\n";
     }
-    cout << "_________________________________\n";
+    cout << string(53, '-') << "\n";
 }
 stProduct FindProductByID(unsigned short ID,
     stProduct arrProducts[], unsigned short ProductCount)
