@@ -174,6 +174,31 @@ void ApplyDiscount(stInvoice& Invoice)
     Invoice.Total = Invoice.SubTotal -
         (Invoice.SubTotal * Invoice.Discount);
 }
+void PrintInvoice(stInvoice Invoice)
+{
+    cout << "\n_________________________________\n";
+    cout << "           Invoice\n";
+    cout << "_________________________________\n";
+    for (unsigned short i = 0; i < Invoice.NumberOfItems; i++)
+    {
+        cout << Invoice.Items[i].Product.Name << "\t";
+        cout << "x" << Invoice.Items[i].Quantity << "\t";
+        cout << "$" << Invoice.Items[i].TotalPrice << endl;
+    }
+    cout << "_________________________________\n";
+    cout << "SubTotal : $" << Invoice.SubTotal << endl;
+    cout << "Discount : " << GetDiscountText(Invoice.Discount) << endl;
+    cout << "Total    : $" << Invoice.Total << endl;
+    cout << "_________________________________\n";
+}
+
+char ReadAddMoreItems()
+{
+    char AddMore = 'Y';
+    cout << "\nAdd more items? Y/N? ";
+    cin >> AddMore;
+    return AddMore;
+}
 int main()
 {
     return 0;
