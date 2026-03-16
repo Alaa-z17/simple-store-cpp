@@ -1,4 +1,5 @@
 #include<iostream>
+#include<string>
 using namespace std;
 
 enum enCategory { Food = 1, Electronics = 2, Clothing = 3 };
@@ -144,6 +145,34 @@ void PrintCart(stInvoice Invoice)
     }
     cout << "_________________________________\n";
     cout << "SubTotal: $" << Invoice.SubTotal << endl;
+}
+float GetDiscount(double SubTotal)
+{
+    if (SubTotal >= 1000)
+        return 0.20f;
+    else if (SubTotal >= 500)
+        return 0.15f;
+    else if (SubTotal >= 200)
+        return 0.10f;
+    else if (SubTotal >= 100)
+        return 0.05f;
+    else
+        return 0.0f;
+}
+
+string GetDiscountText(float Discount)
+{
+    if (Discount == 0)
+        return "No Discount";
+    else
+        return to_string((int)(Discount * 100)) + "% Discount";
+}
+
+void ApplyDiscount(stInvoice& Invoice)
+{
+    Invoice.Discount = GetDiscount(Invoice.SubTotal);
+    Invoice.Total = Invoice.SubTotal -
+        (Invoice.SubTotal * Invoice.Discount);
 }
 int main()
 {
