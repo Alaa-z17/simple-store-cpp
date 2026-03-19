@@ -5,6 +5,12 @@ core concepts of **Functional & Procedural Programming**.
 
 ---
 
+## 🎬 Video Walkthrough
+
+[![Simple Store in C++](https://img.youtube.com/vi/SHM9Vwhrvv8/0.jpg)](https://youtu.be/SHM9Vwhrvv8)
+
+> Click the image above to watch the full project walkthrough on YouTube.
+
 ## 🎯 Learning Objectives
 
 - Structuring a program using functions (Procedural Programming)
